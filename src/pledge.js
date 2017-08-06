@@ -15,11 +15,18 @@ const $Promise = function(executor){
 
 
 $Promise.prototype._internalResolve = function(data) {
-	 this._state = 'fulfilled';
-	 this._value = data;
+	if(this._state === 'pending'){
+		this._state = 'fulfilled';
+		this._value = data;
+	}
 };
 
-$Promise.prototype._internalReject = () => {};
+$Promise.prototype._internalReject = function(reason) {
+	if(this._state === 'pending'){
+		this._state = 'rejected';
+		this._value = reason;
+}
+};
 
 
 
