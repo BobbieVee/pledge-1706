@@ -6,7 +6,7 @@ Promises Workshop: build the pledge.js ES6-style promise library
 // var _state;
 const $Promise = function(executor){
 	this._state = 'pending';
-	this._value = {};
+	// this._value = undefined;
 	if (typeof executor !== 'function') {
 		throw new TypeError('executor not a function');
 	}
@@ -25,7 +25,7 @@ $Promise.prototype._internalReject = function(reason) {
 	if(this._state === 'pending'){
 		this._state = 'rejected';
 		this._value = reason;
-}
+	}
 };
 
 
