@@ -108,7 +108,7 @@ describe('A promise', function(){
       expect( setFoo10 ).toHaveBeenCalled();
     });
 
-    xit("calls a success handler by passing in the promise's value", function(){
+    it("calls a success handler by passing in the promise's value", function(){
       promiseForNum.then( addToFoo );
       expect( addToFoo ).toHaveBeenCalledWith( 25 );
     });

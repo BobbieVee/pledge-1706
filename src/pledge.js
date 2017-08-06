@@ -20,6 +20,7 @@ $Promise.prototype._internalResolve = function(data) {
 		this._state = 'fulfilled';
 		this._value = data;
 	}
+
 };
 
 $Promise.prototype._internalReject = function(reason) {
@@ -30,13 +31,30 @@ $Promise.prototype._internalReject = function(reason) {
 };
 
 $Promise.prototype.then = function(resolve,reject){
-	if (typeof resolve === 'function' || typeof reject === 'function'  ){
-		this._handlerGroups.push({successCb: resolve, errorCb: reject})
-	}
-	else{
+	if (typeof resolve === 'function'  || typeof reject === 'function' ) {
+		this._handlerGroups.push({successCb: resolve, errorCb: reject});
+	} 
+
+	else {
 		this._handlerGroups.push({successCb: false, errorCb: false})
 	}
+
+
+	if (this._state === 'fulfilled'){
+		var that = this;
+				this._handlerGroups.forEach(function(group){
+					group.successCb(that._value);
+				})
+	} 
+
+	if (this._state === 'rejected'){
+		var that = this;
+				this._handlerGroups.forEach(function(group){
+					group.errorCb(that._value);
+				})	} 
+			
 }
+
 
 $Promise.prototype._callHandlers = function(resolve,reject){
 
