@@ -5,6 +5,7 @@ Promises Workshop: build the pledge.js ES6-style promise library
 // YOUR CODE HERE:
 // var _state;
 const $Promise = function(executor){
+	this._handlerGroups = [];
 	this._state = 'pending';
 	// this._value = undefined;
 	if (typeof executor !== 'function') {
@@ -28,8 +29,18 @@ $Promise.prototype._internalReject = function(reason) {
 	}
 };
 
+$Promise.prototype.then = function(resolve,reject){
+	if (typeof resolve === 'function' || typeof reject === 'function'  ){
+		this._handlerGroups.push({successCb: resolve, errorCb: reject})
+	}
+	else{
+		this._handlerGroups.push({successCb: false, errorCb: false})
+	}
+}
 
+$Promise.prototype._callHandlers = function(resolve,reject){
 
+}
 
 
 /*-------------------------------------------------------

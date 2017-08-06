@@ -314,6 +314,7 @@ describe('The executor function', function(){
 
   it('therefore allows the *creator* of a new promise to control its fate, even asynchronously!', function (done) {
 
+
     var promise3 = new $Promise(function (resolve) {
       setTimeout(function runsInTheFuture () {
         resolve('Wow, the future is so cool.');
